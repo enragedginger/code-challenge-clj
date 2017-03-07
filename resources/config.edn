@@ -1,0 +1,7 @@
+{
+ :mailgun {
+           :api-key "key-ed181683ae2352afec9e1316b7beb909"
+           :from-address "postmaster@sandbox119c26d9d2a847278947f4594d71516f.mailgun.org"
+           :endpoint "https://api.mailgun.net/v3/sandbox119c26d9d2a847278947f4594d71516f.mailgun.org/messages"
+           }
+ }
