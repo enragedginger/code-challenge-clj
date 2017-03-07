@@ -7,7 +7,8 @@
                  [aero "1.1.2"]
                  [ring "1.5.1"]
                  [clj-http "3.4.1"]
-                 [org.clojure/tools.cli "0.3.5"]]
+                 [org.clojure/tools.cli "0.3.5"]
+                 [selmer "1.10.6"]]
   :main ^:skip-aot simply-credit-mailer.core
   :target-path "target/%s"
   :aliases {
