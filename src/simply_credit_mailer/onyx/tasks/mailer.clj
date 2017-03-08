@@ -20,6 +20,7 @@
           :lifecycles []}})
 
 (defn send-message [segment]
+  (println "Sending message: " (pr-str segment))
   (mailer/send-message (-> segment :to)
                        (-> segment :subject)
                        (-> segment :body)))
