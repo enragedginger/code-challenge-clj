@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  zookeeper:
+    image: 'wurstmeister/zookeeper'
+    ports:
+    - "2181:2181"
+    - "2888:2888"
+    - "3888:3888"
+  kafka:
+    image: 'wurstmeister/kafka'
+    ports:
+    - "9092"
+    links:
+    - zookeeper
+    environment:
+    - KAFKA_ZOOKEEPER_CONNECT=zookeeper
+    - KAFKA_ADVERTISED_HOST_NAME=${DOCKER_HOST_IP}
+    #- HOSTNAME_COMMAND=route -n | awk '/UG[ \t]/{print $$2}'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

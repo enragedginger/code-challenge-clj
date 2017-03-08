@@ -3,31 +3,20 @@
   (:require [aero.core :refer [read-config]]
             [clojure.java.io :as io]
             [clj-http.client :as http]
-            [clojure.tools.cli :refer [parse-opts]]
             [simply-credit-mailer.template-parser :as template-parser]))
 
 (defn contains-all? [m keys]
   (every? #(contains? m %) keys))
 
-(defn cli-options []
-  [["-t" "--to-address ADDRESS" "The recipient's email address"
-    :parse-fn clojure.string/trim]
+(defn valid-body-req? [segment]
+  (contains-all? segment [:to :subject :body]))
 
-   ["-s" "--subject SUBJECT" "The subject line of the email"
-    :parse-fn clojure.string/trim]
+(defn valid-template-req? [segment]
+  (and (contains-all? segment [:to :subject :template :args])
+       (template-parser/template-exists? (-> segment :template))))
 
-   ["-m" "--message BODY" "The body of the email"
-    :parse-fn clojure.string/trim]])
-
-(defn usage []
-  (->> ["Simply Credit Mailer Utility"
-        " Sends arbitrary email messages."
-        "Usage: action [args]"
-        ""
-        "Actions:"
-        "  send-message [to-address] [subject] [body]"
-        "  send-template [template-name] [to-address] [subject] [arg-pairs]"]
-       (clojure.string/join \newline)))
+;(valid-template-req? {:to "stephenmhopper@gmail.com" :subject "send a thing" :template "welcome" :args {:name "Stephen"}})
+;(valid-body-req? {:to "stephenmhopper@gmail.com" :subject "send a thing" :body "welcome"})
 
 (defn build-mail-config []
   (-> (io/resource "config.edn")
@@ -62,15 +51,6 @@
         arg-map (apply args-to-map args)]
     (send-template-with-arg-map template-name to-address subject arg-map)))
 
-
-
 ;(send-message "stephenmhopper@gmail.com" "First email" "Text goes here")
 ;(send-template "welcome" "stephenmhopper@gmail.com" "First email" "name" "Stephen")
 ;(send-template "welcome" "stephenmhopper@gmail.com" "First email" "name" "Stephen" "url" "http://www.google.com")
-
-(defn -main [& args]
-  (let [{:keys [options arguments errors summary] :as pargs} (parse-opts args (cli-options))]
-    (condp = (first arguments)
-      "send-message" (apply send-message (drop 1 arguments))
-      "send-template" (apply send-template (drop 1 arguments))
-      (println (usage)))))

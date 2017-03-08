@@ -10,7 +10,12 @@
                  [org.clojure/tools.cli "0.3.5"]
                  [selmer "1.10.6"]
                  [compojure "1.5.2"]
-                 [ring/ring-json "0.4.0"]]
+                 [ring/ring-json "0.4.0"]
+                 [org.onyxplatform/onyx "0.9.15"]
+                 [org.onyxplatform/onyx-local-rt "0.9.15.0"]
+                 [org.onyxplatform/onyx-kafka "0.9.15.0"]
+                 [org.onyxplatform/onyx-seq "0.9.15.0"]
+                 [org.onyxplatform/lib-onyx "0.9.15.0"]]
   :plugins [[lein-ring "0.11.0"]]
   :ring {:handler simply-credit-mailer.core/app}
   ;:main ^:skip-aot simply-credit-mailer.core
@@ -18,4 +23,11 @@
   :aliases {
             "send-message" ["run" "-m" "simply-credit-mailer.mailer/-main"]
             }
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:dev {:jvm-opts ["-XX:-OmitStackTraceInFastThrow"]
+                   :global-vars {*assert* true}
+                   :dependencies [[org.clojure/tools.namespace "0.2.11"]
+                                  [lein-project-version "0.1.0"]]}
+             :uberjar {:aot [lib-onyx.media-driver
+                             simply-credit-mailer.core]
+                       :uberjar-name "peer.jar"
+                       :global-vars {*assert* false}}})
