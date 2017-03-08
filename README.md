@@ -1,6 +1,14 @@
-# simply-credit-mailer
+# Simply Credit Mailer
 
-FIXME: description
+Utility / application for providing Simply Credit email automation services. Message requests go in; emails go out.
+
+## Part 1: CLI
+
+## Part 2: Template support
+
+## Part 3: Web REST API
+
+## Part 4: Queue processing
 
 ## Installation
 

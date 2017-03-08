@@ -7,7 +7,7 @@
   (let [body (template-parser/parse-template (-> segment :template) (-> segment :args))]
     {:to (-> segment :to)
      :subject (-> segment :subject)
-     :body (-> segment :body)}))
+     :body body}))
 
 (s/defn build-from-template-task
   [task-name :- s/Keyword
@@ -29,6 +29,8 @@
    opts]
   {:task {:task-map (merge {:onyx/name task-name
                             :onyx/type :output
+                            :onyx/medium :function
+                            :onyx/plugin :onyx.peer.function/function
                             :onyx/fn :simply-credit-mailer.onyx.tasks.mailer/send-message
                             :onyx/doc "Transforms a segment into an email based on its template property"}
                            opts)

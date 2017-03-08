@@ -8,12 +8,12 @@
 (defn contains-all? [m keys]
   (every? #(contains? m %) keys))
 
-(defn valid-body-req? [segment]
-  (contains-all? segment [:to :subject :body]))
+(defn valid-body-req? [event old-segment new-segment all-new-segments]
+  (contains-all? new-segment [:to :subject :body]))
 
-(defn valid-template-req? [segment]
-  (and (contains-all? segment [:to :subject :template :args])
-       (template-parser/template-exists? (-> segment :template))))
+(defn valid-template-req? [event old-segment new-segment all-new-segments]
+  (and (contains-all? new-segment [:to :subject :template :args])
+       (template-parser/template-exists? (-> new-segment :template))))
 
 ;(valid-template-req? {:to "stephenmhopper@gmail.com" :subject "send a thing" :template "welcome" :args {:name "Stephen"}})
 ;(valid-body-req? {:to "stephenmhopper@gmail.com" :subject "send a thing" :body "welcome"})
@@ -21,6 +21,7 @@
 (defn build-mail-config []
   (-> (io/resource "config.edn")
       read-config
+      :app-config
       :mailgun))
 
 (defn send-mail-http [conf to-address subject body]

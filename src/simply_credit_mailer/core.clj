@@ -22,11 +22,6 @@
   (POST "/send-template" request (-> send-template keyword-params/wrap-keyword-params json/wrap-json-params))
   (route/not-found "<h1>Page not found</h1>"))
 
-(defn handler [request]
-  {:status  200
-   :headers {"Content-Type" "text/plain"}
-   :body    "Hello Clojure, Hello Ring!"})
-
 (defn -main []
   (jetty/run-jetty app {:port 3000 :join? false}))
 

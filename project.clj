@@ -22,6 +22,7 @@
   :target-path "target/%s"
   :aliases {
             "send-message" ["run" "-m" "simply-credit-mailer.mailer/-main"]
+            "message-queue" ["run" "-m" "simply-credit-mailer.onyx.core/-main"]
             }
   :profiles {:dev {:jvm-opts ["-XX:-OmitStackTraceInFastThrow"]
                    :global-vars {*assert* true}
