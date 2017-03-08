@@ -52,11 +52,17 @@
   (let [arg-map (apply array-map args)]
     (into {} (map (fn [[k v]] [(keyword k) v]) arg-map))))
 
-(defn send-template [template-name to-address subject & args]
+(defn send-template-with-arg-map [template-name to-address subject arg-map]
   (let [conf (build-mail-config)
-        arg-map (apply args-to-map args)
         body (template-parser/parse-template template-name arg-map)]
     (send-mail-http conf to-address subject body)))
+
+(defn send-template [template-name to-address subject & args]
+  (let [conf (build-mail-config)
+        arg-map (apply args-to-map args)]
+    (send-template-with-arg-map template-name to-address subject arg-map)))
+
+
 
 ;(send-message "stephenmhopper@gmail.com" "First email" "Text goes here")
 ;(send-template "welcome" "stephenmhopper@gmail.com" "First email" "name" "Stephen")
