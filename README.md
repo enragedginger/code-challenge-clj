@@ -53,11 +53,13 @@ Currently supported templates:
 ## Part 3: Web REST API
 
 Starts up a web server for processing email requests via HTTP calls. Usage:
+
 `lein ring server-headless`
 
 This should start the server on port 3000.
 
 Endpoints:
+
 `POST /send-message` - Sends an email message based on a JSON post request. The `to` address, `subject` line, and `body`
 should be specified in the body of a JSON object like so:
 ```
@@ -88,6 +90,7 @@ This application uses Onyx to read message requests from Kafka and submit them t
 are written to a backout / error topic. Valid messages are transformed and then submitted to Mailgun.
 
 To start the required Zookeeper and Kafka services, do the following:
+
 1. Install Docker native.
 2. In a terminal session, `cd` into this project's `scripts` directory.
 3. Run `bash start_dev.sh`. This will pull down the necessary images and give you a Kafka cluster of size three.
@@ -97,6 +100,7 @@ By default, this tool uses the properties defined in resources/config.edn, but d
 the `--config` option.
 
 To start sending emails, do the following:
+
 1. Create the necessary Kafka topics by running `lein message-queue create-topics`.
 2. Start up your Onyx peers / executors by running `lein message-queue start-peers 8` (though anything greater than five should be fine).
 3. (Optional) In a separate window, run `tail -f onyx.log` to read what Onyx has to say.
@@ -111,24 +115,26 @@ You can send template message requests with this: `lein message-queue submit-tem
 7. Wait for Mailgun to email the messages to your clients.
 
 ## Requirements
-- Java 8
-- Leiningen
-- Docker native
-- A connection to the Internet
+
+* Java 8
+* Leiningen
+* Docker native
+* A connection to the Internet
 
 ## Shortcomings / Future Work
+
 1. More comments. This project has some comments, but needs many more.
 2. Unit tests. Every good project has unit tests. This one needs more time.
 3. Improved verification / error handling. This includes a number of things that I would do with more time:
-- I wanted to add some schema.core or core.spec functionality for ensuring that messages are always of the proper format.
-- The web and CLI portions of the project would benefit from some pre-validation steps and helpful error messages. For
+  * I wanted to add some schema.core or core.spec functionality for ensuring that messages are always of the proper format.
+  * The web and CLI portions of the project would benefit from some pre-validation steps and helpful error messages. For
 example, if the user requests to send an email with a template that doesn't exist, we should give them some sort of 400
 error with a helpful message about the template not existing. Similarly, if they submit a template request, but leave
 off some of the parameters, we should probably tell them what's missing. The Onyx version of the application does some
 checking of requests, but just forwards the bad ones off to another topic. It'd be nice to have our own custom message
 format for this topic which includes the original message, an error message, and any other metadata that might be useful
 (process time, machine / process name, etc.).
-- We don't have any error handling around Mailgun. If our HTTP call to Mailgun fails, the whole thing barfs. This isn't
+  * We don't have any error handling around Mailgun. If our HTTP call to Mailgun fails, the whole thing barfs. This isn't
 good in the long run and would also benefit from improved error handling / messaging.
 
 ## License
