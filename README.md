@@ -112,15 +112,18 @@ You can send template message requests with this: `lein message-queue submit-tem
 - A connection to the Internet
 
 ## Shortcomings / Future Work
-1. Unit tests. Every good project has unit tests. This one needs more time.
-2. Improved verification / error handling. For The CLI, there's not much to do here. The web portion could benefit from
-some pre-validation steps / helpful error messages. For example, if the user requests to send an email with a template
-that doesn't exist, we should give them some sort of 400 error with a helpful message about the template not existing.
-Similarly, if they submit a template request, but leave off some of the parameters, we should probably tell them what's
-missing. The Onyx version of the application does some checking of requests, but just forwards the bad ones off to
-another topic. It'd be nice to have our own custom message format for this topic which includes the original message,
-an error message, and any other metadata that might be useful (process time, machine / process name, etc.). Finally,
-we don't have any error handling around Mailgun. If our HTTP call to Mailgun fails, the whole thing barfs. This isn't
+1. More comments. This project has some comments, but needs many more.
+2. Unit tests. Every good project has unit tests. This one needs more time.
+3. Improved verification / error handling. This includes a number of things that I would do with more time:
+- I wanted to add some schema.core or core.spec functionality for ensuring that messages are always of the proper format.
+- The web and CLI portions of the project would benefit from some pre-validation steps and helpful error messages. For
+example, if the user requests to send an email with a template that doesn't exist, we should give them some sort of 400
+error with a helpful message about the template not existing. Similarly, if they submit a template request, but leave
+off some of the parameters, we should probably tell them what's missing. The Onyx version of the application does some
+checking of requests, but just forwards the bad ones off to another topic. It'd be nice to have our own custom message
+format for this topic which includes the original message, an error message, and any other metadata that might be useful
+(process time, machine / process name, etc.).
+- We don't have any error handling around Mailgun. If our HTTP call to Mailgun fails, the whole thing barfs. This isn't
 good in the long run and would also benefit from improved error handling / messaging.
 
 ## License
