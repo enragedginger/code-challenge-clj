@@ -107,9 +107,15 @@ To start sending emails, do the following:
 4. In a separate window, submit your Onyx job for processing mail messages with `lein message-queue submit-job mailer`.
 Please note that this job always starts at the latest offset within the topic. That is, no messages submitted to the
 topic before the job started will be processed. Please see the next steps section for more details on this.
-5. Submit some email requests. You can send plain message requests like so: `lein message-queue submit-message [to-address] [subject] [body]`.
-You can send template message requests with this: `lein message-queue submit-template [template-name] [to-address] [subject] [arg-pairs]`.
-(Please note that `arg-pairs` is a list of key value pairs like in the original CLI tool (see Part 2 for more details).
+5. Submit some email requests. You can send plain message requests like so:
+
+  `lein message-queue submit-message [to-address] [subject] [body]`.
+  
+  You can send template message requests with this:
+  
+  `lein message-queue submit-template [template-name] [to-address] [subject] [arg-pairs]`.
+  
+  (Please note that `arg-pairs` is a list of key value pairs like in the original CLI tool (see Part 2 for more details).
 6. Wait for the app to pick them up and submit them to Mailgun. You should see some messages in the output of your
 "start-peers" window as it submits the messages to Mailgun.
 7. Wait for Mailgun to email the messages to your clients.
