@@ -142,6 +142,9 @@ format for this topic which includes the original message, an error message, and
 (process time, machine / process name, etc.).
   * We don't have any error handling around Mailgun. If our HTTP call to Mailgun fails, the whole thing barfs. This isn't
 good in the long run and would also benefit from improved error handling / messaging.
+4. Authentication / authorization. Right now, this project does nothing to ensure that the user issuing an email request
+is allowed to submit a given email request. Furthermore, this project does nothing in terms of rate limiting of requests
+to Mailgun.
 
 ## License
 
