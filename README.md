@@ -145,6 +145,7 @@ good in the long run and would also benefit from improved error handling / messa
 4. Authentication / authorization. Right now, this project does nothing to ensure that the user issuing an email request
 is allowed to submit a given email request. Furthermore, this project does nothing in terms of rate limiting of requests
 to Mailgun.
+5. Currently, the Onyx version of the app automatically seeks to the latest point in the topic if no checkpoint can be found. This means that we can potentially miss messages if the job starts after messages have been written to the topic and no checkpoint exists for the specified group id. This can be remedied by changing `:kafka/offset-reset :latest` to `:kafka/offset-reset :earliest`. However, during development where message formats change frequently and error handling isn't always fool-proof, this isn't necessarily recommended (hence the decision to go with `:latest` for now).
 
 ## License
 
