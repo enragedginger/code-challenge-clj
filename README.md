@@ -20,19 +20,24 @@ property values. Just be sure to avoid committing these to source control.
 ## Part 1: CLI
 
 Sends basic email requests via a command line interface. Usage:
-`lein send-message [to-address] [subject] [body]`
+
+`lein send-message message [to-address] [subject] [body]`
 
 Example:
-`lein send-message send-message stephenmhopper@gmail.com "How you doin'?" "Sup?"`
+
+`lein send-message message stephenmhopper@gmail.com "How you doin'?" "Sup?"`
 
 ## Part 2: Template support
 
 Sends basic email requests via a command line interface (just like part 1), but makes use of templates. Usage:
-`lein send-message [template-name] [to-address] [subject] [body]`
+
+`lein send-message template [template-name] [to-address] [subject] [body]`
 
 Examples:
-`lein send-message send-template "welcome" "stephenmhopper@gmail.com" "Welcome to the Jungle" "name" "Stephen"`
-`lein send-message send-template "password_reset" "stephenmhopper@gmail.com" "Password Reset Request" "name" "Stephen" "url" "http://www.google.com"`
+
+`lein send-message template "welcome" "stephenmhopper@gmail.com" "Welcome to the Jungle" "name" "Stephen"`
+
+`lein send-message template "password_reset" "stephenmhopper@gmail.com" "Password Reset Request" "name" "Stephen" "url" "http://www.google.com"`
 
 For usage instructions, just run `lein send-message` without any arguments.
 

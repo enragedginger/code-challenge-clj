@@ -9,12 +9,12 @@
         "Usage: action [args]"
         ""
         "Actions:"
-        "  send-message [to-address] [subject] [body]"
-        "  send-template [template-name] [to-address] [subject] [arg-pairs]"]
+        "  message [to-address] [subject] [body]"
+        "  template [template-name] [to-address] [subject] [arg-pairs]"]
        (clojure.string/join \newline)))
 
 (defn -main [& args]
     (condp = (first args)
-      "send-message" (apply mailer/send-message (drop 1 args))
-      "send-template" (apply mailer/send-template (drop 1 args))
+      "message" (apply mailer/send-message (drop 1 args))
+      "template" (apply mailer/send-template (drop 1 args))
       (println (usage))))
