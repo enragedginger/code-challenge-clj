@@ -24,30 +24,3 @@
 
 (defn -main []
   (jetty/run-jetty app {:port 3000 :join? false}))
-
-;(http/post "http://localhost:3000/send-message"
-;           {:content-type :json
-;            :form-params {:to "stephenmhopper@gmail.com"
-;                          :subject "Email via post send-message route"
-;                          :body "This is a sample email"}})
-;
-;(http/post "http://localhost:3000/send-template"
-;           {:content-type :json
-;            :form-params {:to "stephenmhopper@gmail.com"
-;                          :subject "Email via post send-template route"
-;                          :template "welcome"
-;                          :args {
-;                                 :name "Stephen"
-;                                 }}})
-;
-;(http/post "http://localhost:3000/send-template"
-;           {:content-type :json
-;            :form-params {:to "stephenmhopper@gmail.com"
-;                          :subject "Email via post send-template route"
-;                          :template "password_reset"
-;                          :args {
-;                                 :name "Stephen"
-;                                 :url "http://www.google.com"
-;                                 }}})
-
-;(-main)

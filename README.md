@@ -5,13 +5,25 @@ All emails are ultimately sent via Mailgun. This utility simply submits the requ
 
 Mileage may vary.
 
+## Configuration
+
+By default, this application uses the configuration data stored in resource/config.edn. For connecting to Mailgun,
+you'll need to set the following environment variables in your terminal session before executing the Lein commands
+referenced in subsequent sections:
+- MAILGUN_API_KEY
+- MAILGUN_FROM
+- MAILGUN_ENDPOINT
+
+Alternatively, you can update the config file, swapping out the `#env MAILGUN_API_KEY` (et. al.) bits for the actual
+property values. Just be sure to avoid committing these to source control.
+
 ## Part 1: CLI
 
 Sends basic email requests via a command line interface. Usage:
 `lein send-message [to-address] [subject] [body]`
 
 Example:
-`lein send-message stephenmhopper@gmail.com "How you doin'?" "Sup?"`
+`lein send-message send-message stephenmhopper@gmail.com "How you doin'?" "Sup?"`
 
 ## Part 2: Template support
 
@@ -19,8 +31,8 @@ Sends basic email requests via a command line interface (just like part 1), but 
 `lein send-message [template-name] [to-address] [subject] [body]`
 
 Examples:
-`lein send-message "welcome" "stephenmhopper@gmail.com" "Welcome to the Jungle" "name" "Stephen"`
-`lein send-message "password_reset" "stephenmhopper@gmail.com" "Password Reset Request" "name" "Stephen" "url" "http://www.google.com"`
+`lein send-message send-template "welcome" "stephenmhopper@gmail.com" "Welcome to the Jungle" "name" "Stephen"`
+`lein send-message send-template "password_reset" "stephenmhopper@gmail.com" "Password Reset Request" "name" "Stephen" "url" "http://www.google.com"`
 
 For usage instructions, just run `lein send-message` without any arguments.
 
@@ -36,7 +48,7 @@ Currently supported templates:
 ## Part 3: Web REST API
 
 Starts up a web server for processing email requests via HTTP calls. Usage:
-`lein ring start`
+`lein ring server-headless`
 
 This should start the server on port 3000.
 

@@ -21,7 +21,7 @@
   ;:main ^:skip-aot simply-credit-mailer.core
   :target-path "target/%s"
   :aliases {
-            "send-message" ["run" "-m" "simply-credit-mailer.mailer/-main"]
+            "send-message" ["run" "-m" "simply-credit-mailer.cli-mailer/-main"]
             "message-queue" ["run" "-m" "simply-credit-mailer.onyx.core/-main"]
             }
   :profiles {:dev {:jvm-opts ["-XX:-OmitStackTraceInFastThrow"]
