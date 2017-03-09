@@ -31,7 +31,7 @@ Example:
 
 Sends basic email requests via a command line interface (just like part 1), but makes use of templates. Usage:
 
-`lein send-message template [template-name] [to-address] [subject] [body]`
+`lein send-message template [template-name] [to-address] [subject] [arg-pairs]`
 
 Examples:
 
@@ -42,13 +42,13 @@ Examples:
 For usage instructions, just run `lein send-message` without any arguments.
 
 Currently supported templates:
-- welcome
--- params:
---- name: The name of the individual receiving the welcome email.
-- password_reset
--- params:
---- name: The name of the individual receiving the password reset.
---- url: The URL the individual should visit to finish the password reset process.
+* welcome
+  * params:
+    * name: The name of the individual receiving the welcome email.
+* password_reset
+  * params:
+    * name: The name of the individual receiving the password reset.
+    * url: The URL the individual should visit to finish the password reset process.
 
 ## Part 3: Web REST API
 
